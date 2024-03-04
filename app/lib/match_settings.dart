@@ -19,11 +19,14 @@ class _MatchSettingsState extends State<MatchSettings> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Match Settings'),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Match Settings',
+          style: TextStyle(color: Colors.white),
+        ),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.arrow_forward),
-            iconSize: 32,
             onPressed: () {
               Map<String, dynamic> matchSettings = {
                 "teamName": controllers["Team A Name"]!.text,
