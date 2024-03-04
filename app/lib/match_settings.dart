@@ -25,15 +25,58 @@ class _MatchSettingsState extends State<MatchSettings> {
             icon: const Icon(Icons.arrow_forward),
             iconSize: 32,
             onPressed: () {
-              Map<String, dynamic> matchSettings = {
-                "teamName": controllers["Team A Name"]!.text,
-                "nPlayersField": int.parse(controllers["Number field players"]!.text),
-                "nPlayersBench": int.parse(controllers["Number bench players"]!.text),
-              };
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => TacticsPanel(matchSettings: matchSettings)),
-              );
+              if (controllers["Team A Name"]!.text.isEmpty) {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text("Faltan datos"),
+                      content:
+                          const Text("Por favor completa todos los campos"),
+                      actions: <Widget>[
+                        TextButton(
+                            child: const Text("Ok"),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            })
+                      ],
+                    );
+                  },
+                );
+              } else {
+                try {
+                  Map<String, dynamic> matchSettings = {
+                    "teamName": controllers["Team A Name"]!.text,
+                    "nPlayersField":
+                        int.parse(controllers["Number field players"]!.text),
+                    "nPlayersBench":
+                        int.parse(controllers["Number bench players"]!.text),
+                  };
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            TacticsPanel(matchSettings: matchSettings)),
+                  );
+                } catch (e) {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text("Datos incorrectos"),
+                        content: const Text("Deben ser números"),
+                        actions: <Widget>[
+                          TextButton(
+                              child: const Text("Ok"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              })
+                        ],
+                      );
+                    },
+                  );
+                }
+              }
             },
           )
         ],
@@ -46,7 +89,10 @@ class _MatchSettingsState extends State<MatchSettings> {
             children: [
               TextField(
                 controller: controllers["Team A Name"],
-                decoration: const InputDecoration(labelText: "Team Name", hintText: "What is the team name?"),
+                decoration: const InputDecoration(
+                  labelText: "Team Name",
+                  hintText: "What is the team name?",
+                ),
               ),
               TextField(
                 controller: controllers["Number field players"],
