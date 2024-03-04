@@ -21,6 +21,7 @@ class _TacticsPanelState extends State<TacticsPanel> {
         backgroundColor: Colors.black,
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -39,22 +40,26 @@ class _TacticsPanelState extends State<TacticsPanel> {
           ),
           Container(
               padding: const EdgeInsets.all(8),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    FormationDropdown(
-                      selectedFormation: _formationString,
-                      onChanged: (String? selectedFormation) {
-                        print("Selected formation: $selectedFormation");
-                        setState(() {
-                          _formationString = selectedFormation;
-                        });
-                      },
-                    ),
-                  ],
-                ),
+              child: Column(
+                children: [
+                  FormationDropdown(
+                    selectedFormation: _formationString,
+                    onChanged: (String? selectedFormation) {
+                      print("Selected formation: $selectedFormation");
+                      setState(() {
+                        _formationString = selectedFormation;
+                      });
+                    },
+                  ),
+                  Container(
+                    height: 300,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+                    child: Center(child: const Text("Pitch")),
+                  )
+                ],
               )),
-          const Expanded(child: SizedBox()),
+          // const Expanded(child: SizedBox()),
           Padding(
             padding: const EdgeInsets.all(8),
             child: ElevatedButton(
