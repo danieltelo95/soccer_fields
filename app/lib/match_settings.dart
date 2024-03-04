@@ -1,3 +1,4 @@
+import 'package:app/tactics_panel.dart';
 import 'package:flutter/material.dart';
 
 class MatchSettings extends StatefulWidget {
@@ -22,7 +23,18 @@ class _MatchSettingsState extends State<MatchSettings> {
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.arrow_forward),
-            onPressed: () {},
+            iconSize: 32,
+            onPressed: () {
+              Map<String, dynamic> matchSettings = {
+                "teamName": controllers["Team A Name"]!.text,
+                "nPlayersField": int.parse(controllers["Number field players"]!.text),
+                "nPlayersBench": int.parse(controllers["Number bench players"]!.text),
+              };
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TacticsPanel(matchSettings: matchSettings)),
+              );
+            },
           )
         ],
       ),
@@ -34,8 +46,7 @@ class _MatchSettingsState extends State<MatchSettings> {
             children: [
               TextField(
                 controller: controllers["Team A Name"],
-                decoration: const InputDecoration(
-                    labelText: "Team Name", hintText: "What is the team name?"),
+                decoration: const InputDecoration(labelText: "Team Name", hintText: "What is the team name?"),
               ),
               TextField(
                 controller: controllers["Number field players"],
