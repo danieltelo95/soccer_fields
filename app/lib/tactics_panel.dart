@@ -17,7 +17,8 @@ class _TacticsPanelState extends State<TacticsPanel> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${widget.matchSettings["teamName"]} - Alineación', style: const TextStyle(color: Colors.white)),
+        title: Text('${widget.matchSettings["teamName"]} - Alineación',
+            style: const TextStyle(color: Colors.white)),
         backgroundColor: Colors.black,
       ),
       body: Column(
@@ -28,13 +29,17 @@ class _TacticsPanelState extends State<TacticsPanel> {
             children: [
               Container(
                 padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-                child: Text('Titulares: ${widget.matchSettings["nPlayersField"]}'),
+                decoration:
+                    BoxDecoration(border: Border.all(color: Colors.black)),
+                child:
+                    Text('Titulares: ${widget.matchSettings["nPlayersField"]}'),
               ),
               Container(
                 padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-                child: Text('Suplentes: ${widget.matchSettings["nPlayersBench"]}'),
+                decoration:
+                    BoxDecoration(border: Border.all(color: Colors.black)),
+                child:
+                    Text('Suplentes: ${widget.matchSettings["nPlayersBench"]}'),
               ),
             ],
           ),
@@ -54,8 +59,9 @@ class _TacticsPanelState extends State<TacticsPanel> {
                   Container(
                     height: 300,
                     padding: const EdgeInsets.symmetric(horizontal: 16),
-                    decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-                    child: Center(child: const Text("Pitch")),
+                    decoration:
+                        BoxDecoration(border: Border.all(color: Colors.black)),
+                    child: const Center(child: Text("Pitch")),
                   )
                 ],
               )),
