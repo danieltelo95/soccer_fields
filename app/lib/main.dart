@@ -30,6 +30,9 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
+        appBarTheme: const AppBarTheme(
+          iconTheme: IconThemeData(color: Colors.white, size: 30),
+        ),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
