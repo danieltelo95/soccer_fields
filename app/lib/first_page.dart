@@ -9,14 +9,23 @@ class MatchSettings extends StatefulWidget {
 
 class _MatchSettingsState extends State<MatchSettings> {
   final Map<String, TextEditingController> controllers = {
-    "Number of Players": TextEditingController(),
-    "Team A": TextEditingController(),
-    "Team B": TextEditingController(),
+    "Team A Name": TextEditingController(),
+    "Number field players": TextEditingController(),
+    "Number bench players": TextEditingController(),
   };
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Match Settings'),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.arrow_forward),
+            onPressed: () {},
+          )
+        ],
+      ),
       body: Center(
         child: Container(
           padding: const EdgeInsets.all(16),
@@ -24,23 +33,22 @@ class _MatchSettingsState extends State<MatchSettings> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextField(
-                controller: controllers["Number of Players"],
+                controller: controllers["Team A Name"],
                 decoration: const InputDecoration(
-                    labelText: "Number of Players",
-                    hintText: "How many players?"),
+                    labelText: "Team Name", hintText: "What is the team name?"),
               ),
               TextField(
-                controller: controllers["Team A"],
+                controller: controllers["Number field players"],
                 decoration: const InputDecoration(
-                  labelText: "Team A",
-                  hintText: "Name of team A",
+                  labelText: "Number field players",
+                  hintText: "Number field players",
                 ),
               ),
               TextField(
-                controller: controllers["Team B"],
+                controller: controllers["Number bench players"],
                 decoration: const InputDecoration(
-                  labelText: "Team B",
-                  hintText: "Name of team B",
+                  labelText: "Number bench players",
+                  hintText: "Number bench players",
                 ),
               ),
             ],
