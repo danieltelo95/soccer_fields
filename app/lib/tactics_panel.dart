@@ -61,7 +61,7 @@ class _TacticsPanelState extends State<TacticsPanel> {
                         fit: BoxFit.cover,
                       ),
                     ),
-                    child: const Center(child: Text("Pitch")),
+                    child: FormationDiagram(formationString: _formationString ?? '4-4-2'),
                   )
                 ],
               )),
