@@ -65,7 +65,7 @@ class _TacticsPanelState extends State<TacticsPanel> {
                   )
                 ],
               )),
-          // const Expanded(child: SizedBox()),
+          const Expanded(child: SizedBox()),
           Padding(
             padding: const EdgeInsets.all(8),
             child: ElevatedButton(
