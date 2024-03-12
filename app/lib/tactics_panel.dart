@@ -62,28 +62,18 @@ class _TacticsPanelState extends State<TacticsPanel> {
                 ],
               ),
             ),
-            Column(
-              children: List.generate(
-                  widget.matchSettings['nPlayers'],
-                  (index) => Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 16,
-                            height: 16,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.blue,
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          Text(
-                            index < widget.matchSettings["Atendees"]!.length
-                                ? widget.matchSettings["Atendees"][index]
-                                : "Cupo disponible",
-                          ),
-                        ],
-                      )),
+            const SizedBox(height: 32),
+            const Text(
+              "Jugadores",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+            ),
+            const SizedBox(height: 32),
+            Row(
+              children: [
+                Expanded(child: buildPlayerColumn(0)),
+                const SizedBox(width: 16),
+                Expanded(child: buildPlayerColumn((widget.matchSettings['nPlayers'] / 2).ceil())),
+              ],
             ),
             const Expanded(
               child: SizedBox(),
@@ -104,6 +94,37 @@ class _TacticsPanelState extends State<TacticsPanel> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget buildPlayerColumn(int startIndex) {
+    return Column(
+      children: List.generate(
+        (widget.matchSettings['nPlayers'] / 2).ceil(),
+        (index) => buildPlayerRow(startIndex + index),
+      ),
+    );
+  }
+
+  Widget buildPlayerRow(int index) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          width: 16,
+          height: 16,
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.blue,
+          ),
+        ),
+        const SizedBox(width: 8),
+        Text(
+          index < widget.matchSettings["Atendees"]!.length
+              ? widget.matchSettings["Atendees"][index]
+              : "Cupo disponible",
+        ),
+      ],
     );
   }
 }
