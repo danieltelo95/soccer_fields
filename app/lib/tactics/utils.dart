@@ -66,16 +66,16 @@ class _FormationDiagramState extends State<FormationDiagram> {
         children: [
           // Goalkeeper column
           buildPlayerColumn(context, 1, playerSize),
-          Spacer(), // Adjust spacing as necessary
+          const Spacer(), // Adjust spacing as necessary
           // Defense columns
           buildPlayerColumn(context, _formation[0], playerSize),
-          Spacer(), // Adjust spacing as necessary
+          const Spacer(), // Adjust spacing as necessary
           // Midfield columns
           buildPlayerColumn(context, _formation[1], playerSize),
-          Spacer(), // Adjust spacing as necessary
+          const Spacer(), // Adjust spacing as necessary
           // Attack columns
           buildPlayerColumn(context, _formation[2], playerSize),
-          Spacer(), // Fill the remaining space
+          const Spacer(), // Fill the remaining space
         ],
       ),
     );
@@ -86,16 +86,22 @@ class _FormationDiagramState extends State<FormationDiagram> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: List.generate(
-          playerCount,
-          (index) => Container(
-            width: size,
-            height: size,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.blue.shade800,
-            ),
-          ),
-        ),
+            playerCount,
+            (index) => Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 16,
+                      height: 16,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.blue,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Text('$playerCount'),
+                  ],
+                )),
       ),
     );
   }

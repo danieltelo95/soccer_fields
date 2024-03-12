@@ -20,25 +20,21 @@ class _TacticsPanelState extends State<TacticsPanel> {
         title: Text('${widget.matchSettings["teamName"]} - Alineación', style: const TextStyle(color: Colors.white)),
         backgroundColor: Colors.black,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-                child: Text('Titulares: ${widget.matchSettings["nPlayersField"]}'),
-              ),
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-                child: Text('Suplentes: ${widget.matchSettings["nPlayersBench"]}'),
-              ),
-            ],
-          ),
-          Container(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+                  child: Text('Jugadores: ${widget.matchSettings["nPlayers"]}'),
+                ),
+              ],
+            ),
+            Container(
               padding: const EdgeInsets.all(8),
               child: Column(
                 children: [
@@ -62,24 +58,51 @@ class _TacticsPanelState extends State<TacticsPanel> {
                       ),
                     ),
                     child: FormationDiagram(formationString: _formationString ?? '4-4-2'),
-                  )
+                  ),
                 ],
-              )),
-          const Expanded(child: SizedBox()),
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: ElevatedButton(
-              onPressed: () {
-                print("Guardar");
-              },
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
-              child: const Text(
-                "Guardar",
-                style: TextStyle(color: Colors.white),
               ),
             ),
-          )
-        ],
+            Column(
+              children: List.generate(
+                  widget.matchSettings['nPlayers'],
+                  (index) => Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 16,
+                            height: 16,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.blue,
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            index < widget.matchSettings["Atendees"]!.length
+                                ? widget.matchSettings["Atendees"][index]
+                                : "Cupo disponible",
+                          ),
+                        ],
+                      )),
+            ),
+            const Expanded(
+              child: SizedBox(),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: ElevatedButton(
+                onPressed: () {
+                  print("Guardar");
+                },
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+                child: const Text(
+                  "Guardar",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
