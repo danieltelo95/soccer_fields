@@ -120,8 +120,8 @@ class _TacticsPanelState extends State<TacticsPanel> {
         ),
         const SizedBox(width: 8),
         Text(
-          index < widget.matchSettings["Atendees"]!.length
-              ? widget.matchSettings["Atendees"][index]
+          index < widget.matchSettings["Attendees"]!.length
+              ? widget.matchSettings["Attendees"][index]["username"]
               : "Cupo disponible",
         ),
       ],

@@ -12,18 +12,18 @@ class _MatchSettingsState extends State<MatchSettings> {
   final Map<String, dynamic> controllers = {
     "Team A Name": TextEditingController(),
     "Number of players": TextEditingController(),
-    "Atendees": [
-      'Kahn',
-      'Cafu',
-      'Puyol',
-      'Ramos',
-      'Zanetti',
-      'Zidane',
-      'Maradona',
-      'Dinho',
-      'Messi',
-      'C. Ronaldo',
-      'Ronaldo',
+    "Attendees": <Map<String, dynamic>>[
+      {"username": 'Kahn', "number": 1},
+      {"username": 'Cafu', "number": 2},
+      {"username": 'Puyol', "number": 3},
+      {"username": 'Ramos', "number": 13},
+      {"username": 'Zanetti', "number": 4},
+      {"username": 'Zidane', "number": 5},
+      {"username": 'Maradona', "number": 8},
+      {"username": 'Dinho', "number": 10},
+      {"username": 'Messi', "number": 19},
+      {"username": 'C. Ronaldo', "number": 7},
+      {"username": 'Ronaldo', "number": 9}
     ]
   };
 
@@ -82,7 +82,7 @@ class _MatchSettingsState extends State<MatchSettings> {
                     try {
                       Map<String, dynamic> matchSettings = {
                         "teamName": controllers["Team A Name"]!.text,
-                        "Atendees": controllers["Atendees"],
+                        "Attendees": controllers["Attendees"],
                         "nPlayers": int.parse(controllers["Number of players"]!.text),
                       };
                       Navigator.push(
@@ -109,7 +109,6 @@ class _MatchSettingsState extends State<MatchSettings> {
                     }
                   }
                 }
-                ;
               })
         ],
       ),
@@ -136,7 +135,7 @@ class _MatchSettingsState extends State<MatchSettings> {
               const SizedBox(height: 20),
               Column(
                 children: [
-                  for (var player in controllers["Atendees"]!) Text(player),
+                  for (var attendee in controllers["Attendees"]!) Text(attendee["username"]),
                 ],
               ),
             ],
