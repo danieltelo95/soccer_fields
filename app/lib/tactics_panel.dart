@@ -4,20 +4,32 @@ import 'package:flutter/material.dart';
 class TacticsPanel extends StatefulWidget {
   final Map<String, dynamic> matchSettings;
 
-  const TacticsPanel({super.key, required this.matchSettings});
+  const TacticsPanel({Key? key, required this.matchSettings}) : super(key: key);
 
   @override
   State<TacticsPanel> createState() => _TacticsPanelState();
 }
 
 class _TacticsPanelState extends State<TacticsPanel> {
-  String? _formationString = '4 - 4 - 2';
+  String? _selectedMatchType = '11 vs 11';
+  String? _selectedFormationString = '4 - 4 - 2';
+
+  List<String> _matchTypes = ['11 vs 11', '9 vs 9', '7 vs 7'];
+
+  final Map<String, List<String>> _formations = {
+    '11 vs 11': ['4 - 4 - 2', '3 - 5 - 2'],
+    '9 vs 9': ['3 - 3 - 2', '3 - 2 - 3'],
+    '7 vs 7': ['3 - 2 - 1', '3 - 1 - 2'],
+  };
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${widget.matchSettings["teamName"]} - Alineación', style: const TextStyle(color: Colors.white)),
+        title: Text(
+          '${widget.matchSettings["teamName"]} - Alineación',
+          style: const TextStyle(color: Colors.white),
+        ),
         backgroundColor: Colors.black,
       ),
       body: Center(
@@ -30,7 +42,21 @@ class _TacticsPanelState extends State<TacticsPanel> {
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-                  child: Text('Jugadores: ${widget.matchSettings["nPlayers"]}'),
+                  child: DropdownButton<String>(
+                    value: _selectedMatchType,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        _selectedMatchType = newValue;
+                        _selectedFormationString = _formations[newValue!]![0]; // Select the first formation by default
+                      });
+                    },
+                    items: _matchTypes.map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
                 ),
               ],
             ),
@@ -38,14 +64,19 @@ class _TacticsPanelState extends State<TacticsPanel> {
               padding: const EdgeInsets.all(8),
               child: Column(
                 children: [
-                  FormationDropdown(
-                    selectedFormation: _formationString,
+                  DropdownButton<String>(
+                    value: _selectedFormationString,
                     onChanged: (String? selectedFormation) {
-                      print("Selected formation: $selectedFormation");
                       setState(() {
-                        _formationString = selectedFormation;
+                        _selectedFormationString = selectedFormation;
                       });
                     },
+                    items: _formations[_selectedMatchType!]!.map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
                   ),
                   Container(
                     height: MediaQuery.of(context).size.height * 0.3,
@@ -57,7 +88,7 @@ class _TacticsPanelState extends State<TacticsPanel> {
                         fit: BoxFit.cover,
                       ),
                     ),
-                    child: FormationDiagram(formationString: _formationString ?? '4-4-2'),
+                    child: FormationDiagram(formationString: _selectedFormationString!),
                   ),
                 ],
               ),
