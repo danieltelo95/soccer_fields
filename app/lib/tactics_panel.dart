@@ -14,11 +14,11 @@ class _TacticsPanelState extends State<TacticsPanel> {
   String? _selectedMatchType = '11 vs 11';
   String? _selectedFormationString = '4 - 4 - 2';
 
-  List<String> _matchTypes = ['11 vs 11', '9 vs 9', '7 vs 7'];
+  final List<String> _matchTypes = ['11 vs 11', '9 vs 9', '7 vs 7'];
 
   final Map<String, List<String>> _formations = {
-    '11 vs 11': ['4 - 4 - 2', '3 - 5 - 2'],
-    '9 vs 9': ['3 - 3 - 2', '3 - 2 - 3'],
+    '11 vs 11': ['4 - 4 - 2', '4 - 3 - 3', '3 - 5 - 2', '3 - 4 - 3'],
+    '9 vs 9': ['3 - 3 - 2', '3 - 2 - 3', '4 - 2 - 2', '4 - 3 - 1'],
     '7 vs 7': ['3 - 2 - 1', '3 - 1 - 2'],
   };
 
