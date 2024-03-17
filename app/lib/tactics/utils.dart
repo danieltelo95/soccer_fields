@@ -4,7 +4,7 @@ class FormationDropdown extends StatefulWidget {
   final String? selectedFormation;
   final Function(String?) onChanged;
 
-  const FormationDropdown({super.key, required this.onChanged, this.selectedFormation});
+  const FormationDropdown({Key? key, required this.onChanged, this.selectedFormation}) : super(key: key);
 
   @override
   State<FormationDropdown> createState() => _FormationDropdownState();
@@ -36,8 +36,10 @@ class _FormationDropdownState extends State<FormationDropdown> {
 
 class FormationDiagram extends StatefulWidget {
   final String formationString;
+  final List<Map<String, dynamic>> attendees; // New line to accept attendees data
 
-  const FormationDiagram({Key? key, required this.formationString}) : super(key: key);
+  const FormationDiagram({Key? key, required this.formationString, required this.attendees})
+      : super(key: key); // Modified to accept attendees data
 
   @override
   State<FormationDiagram> createState() => _FormationDiagramState();
@@ -66,16 +68,16 @@ class _FormationDiagramState extends State<FormationDiagram> {
         children: [
           // Goalkeeper column
           buildPlayerColumn(context, 1, playerSize),
-          Spacer(), // Adjust spacing as necessary
+          const Spacer(), // Adjust spacing as necessary
           // Defense columns
           buildPlayerColumn(context, _formation[0], playerSize),
-          Spacer(), // Adjust spacing as necessary
+          const Spacer(), // Adjust spacing as necessary
           // Midfield columns
           buildPlayerColumn(context, _formation[1], playerSize),
-          Spacer(), // Adjust spacing as necessary
+          const Spacer(), // Adjust spacing as necessary
           // Attack columns
           buildPlayerColumn(context, _formation[2], playerSize),
-          Spacer(), // Fill the remaining space
+          const Spacer(), // Fill the remaining space
         ],
       ),
     );
@@ -87,16 +89,67 @@ class _FormationDiagramState extends State<FormationDiagram> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: List.generate(
           playerCount,
-          (index) => Container(
-            width: size,
-            height: size,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.blue.shade800,
-            ),
+          (index) => Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                  width: 40,
+                  height: 40,
+                  child: TextButton(
+                    onPressed: () {
+                      _showPlayerInfo(
+                        context,
+                        widget.attendees[index]['number'],
+                        widget.attendees[index]['username'],
+                      );
+                    },
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.blue.shade800),
+                        shape: MaterialStateProperty.all<OutlinedBorder>(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20), side: const BorderSide(color: Colors.black))),
+                        elevation: MaterialStateProperty.all<double>(16),
+                        shadowColor: MaterialStateProperty.all<Color>(Colors.black)),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        widget.attendees[index]["number"].toString(), // Display the number property
+                        style: const TextStyle(color: Colors.white, fontSize: 10), // Adjust styling as needed
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ))
+            ],
           ),
         ),
       ),
+    );
+  }
+
+  void _showPlayerInfo(BuildContext context, int playerNumber, String playerName) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Información del jugador'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Number: $playerNumber'),
+              const SizedBox(height: 16),
+              Text('Name: $playerName'),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Cerrar'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
