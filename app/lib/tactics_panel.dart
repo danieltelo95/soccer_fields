@@ -88,7 +88,10 @@ class _TacticsPanelState extends State<TacticsPanel> {
                         fit: BoxFit.cover,
                       ),
                     ),
-                    child: FormationDiagram(formationString: _selectedFormationString!),
+                    child: FormationDiagram(
+                      formationString: _selectedFormationString!,
+                      attendees: widget.matchSettings['Attendees'],
+                    ),
                   ),
                 ],
               ),

@@ -4,7 +4,7 @@ class FormationDropdown extends StatefulWidget {
   final String? selectedFormation;
   final Function(String?) onChanged;
 
-  const FormationDropdown({super.key, required this.onChanged, this.selectedFormation});
+  const FormationDropdown({Key? key, required this.onChanged, this.selectedFormation}) : super(key: key);
 
   @override
   State<FormationDropdown> createState() => _FormationDropdownState();
@@ -36,8 +36,10 @@ class _FormationDropdownState extends State<FormationDropdown> {
 
 class FormationDiagram extends StatefulWidget {
   final String formationString;
+  final List<Map<String, dynamic>> attendees; // New line to accept attendees data
 
-  const FormationDiagram({Key? key, required this.formationString}) : super(key: key);
+  const FormationDiagram({Key? key, required this.formationString, required this.attendees})
+      : super(key: key); // Modified to accept attendees data
 
   @override
   State<FormationDiagram> createState() => _FormationDiagramState();
@@ -86,22 +88,27 @@ class _FormationDiagramState extends State<FormationDiagram> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: List.generate(
-            playerCount,
-            (index) => Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 16,
-                      height: 16,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.blue,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Text('$playerCount'),
-                  ],
-                )),
+          playerCount,
+          (index) => Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 24,
+                height: 24,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.blue,
+                ),
+                child: Center(
+                  child: Text(
+                    widget.attendees[index]["number"].toString(), // Display the number property
+                    style: const TextStyle(color: Colors.white), // Adjust styling as needed
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

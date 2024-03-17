@@ -14,7 +14,7 @@ class _MatchSettingsState extends State<MatchSettings> {
     "Number of players": TextEditingController(),
     "Attendees": <Map<String, dynamic>>[
       {"username": 'Kahn', "number": 1},
-      {"username": 'Cafu', "number": 2},
+      {"username": 'Cafu', "number": 21},
       {"username": 'Puyol', "number": 3},
       {"username": 'Ramos', "number": 13},
       {"username": 'Zanetti', "number": 4},
