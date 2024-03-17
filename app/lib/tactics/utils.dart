@@ -92,24 +92,64 @@ class _FormationDiagramState extends State<FormationDiagram> {
           (index) => Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                width: 24,
-                height: 24,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.blue,
-                ),
-                child: Center(
-                  child: Text(
-                    widget.attendees[index]["number"].toString(), // Display the number property
-                    style: const TextStyle(color: Colors.white), // Adjust styling as needed
-                  ),
-                ),
-              ),
+              SizedBox(
+                  width: 40,
+                  height: 40,
+                  child: TextButton(
+                    onPressed: () {
+                      _showPlayerInfo(
+                        context,
+                        widget.attendees[index]['number'],
+                        widget.attendees[index]['username'],
+                      );
+                    },
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.blue.shade800),
+                        shape: MaterialStateProperty.all<OutlinedBorder>(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20), side: const BorderSide(color: Colors.black))),
+                        elevation: MaterialStateProperty.all<double>(16),
+                        shadowColor: MaterialStateProperty.all<Color>(Colors.black)),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        widget.attendees[index]["number"].toString(), // Display the number property
+                        style: const TextStyle(color: Colors.white, fontSize: 10), // Adjust styling as needed
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ))
             ],
           ),
         ),
       ),
+    );
+  }
+
+  void _showPlayerInfo(BuildContext context, int playerNumber, String playerName) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Información del jugador'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Number: $playerNumber'),
+              const SizedBox(height: 16),
+              Text('Name: $playerName'),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Cerrar'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

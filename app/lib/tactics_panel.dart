@@ -36,12 +36,16 @@ class _TacticsPanelState extends State<TacticsPanel> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            const SizedBox(height: 32),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
                   padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                    color: Colors.black,
+                  )),
                   child: DropdownButton<String>(
                     value: _selectedMatchType,
                     onChanged: (String? newValue) {
@@ -58,13 +62,11 @@ class _TacticsPanelState extends State<TacticsPanel> {
                     }).toList(),
                   ),
                 ),
-              ],
-            ),
-            Container(
-              padding: const EdgeInsets.all(8),
-              child: Column(
-                children: [
-                  DropdownButton<String>(
+                const SizedBox(width: 32), // Add some spacing between the dropdown menus
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+                  child: DropdownButton<String>(
                     value: _selectedFormationString,
                     onChanged: (String? selectedFormation) {
                       setState(() {
@@ -78,22 +80,23 @@ class _TacticsPanelState extends State<TacticsPanel> {
                       );
                     }).toList(),
                   ),
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.3,
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black),
-                      image: const DecorationImage(
-                        image: AssetImage("assets/backgrounds/football_field_v1.png"),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    child: FormationDiagram(
-                      formationString: _selectedFormationString!,
-                      attendees: widget.matchSettings['Attendees'],
-                    ),
-                  ),
-                ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 32),
+            Container(
+              height: MediaQuery.of(context).size.height * 0.3,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black),
+                image: const DecorationImage(
+                  image: AssetImage("assets/backgrounds/football_field_v1.png"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: FormationDiagram(
+                formationString: _selectedFormationString!,
+                attendees: widget.matchSettings['Attendees'],
               ),
             ),
             const SizedBox(height: 32),
